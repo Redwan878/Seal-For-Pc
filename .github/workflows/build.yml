@@ -1,33 +1,46 @@
-name: Build WinUI 3 App
+name: Build TreaYT WinUI 3 App
 
 on:
   push:
+    branches: [ main ]
+  pull_request:
     branches: [ main ]
   workflow_dispatch:
 
 jobs:
   build:
     runs-on: windows-latest
-
+    
     steps:
-      - uses: actions/checkout@v4
-
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: '8.0.x'
-
-      - name: Restore dependencies
-        run: dotnet restore
-
-      - name: Build
-        run: dotnet build --configuration Release
-
-      - name: Publish
-        run: dotnet publish -c Release -o publish
-
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: TreaYT-winui3-build
-          path: publish
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '8.0.x'
+        
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v2
+      
+    - name: Setup NuGet
+      uses: NuGet/setup-nuget@v2
+      
+    - name: Restore NuGet packages
+      run: nuget restore TreaYT.csproj
+      
+    - name: Restore .NET dependencies
+      run: dotnet restore TreaYT.csproj
+      
+    - name: Build application
+      run: dotnet build TreaYT.csproj --configuration Release --no-restore
+      
+    - name: Publish application
+      run: dotnet publish TreaYT.csproj -c Release -r win-x64 --self-contained true -o ./publish
+      
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: TreaYT-WinUI3-Release
+        path: ./publish
+        retention-days: 30
