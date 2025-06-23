@@ -1,0 +1,98 @@
+<Page
+    x:Class="TreaYT.Views.SettingsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="using:TreaYT.ViewModels"
+    mc:Ignorable="d">
+
+    <ScrollViewer Padding="24">
+        <StackPanel Spacing="24" MaxWidth="800">
+            <TextBlock Text="Settings"
+                       Style="{StaticResource TitleLargeTextBlockStyle}"/>
+
+            <!-- Appearance -->
+            <StackPanel Spacing="16">
+                <TextBlock Text="Appearance"
+                           Style="{StaticResource SubtitleTextBlockStyle}"/>
+
+                <ComboBox Header="Theme"
+                          SelectedItem="{x:Bind ViewModel.SelectedTheme, Mode=TwoWay}">
+                    <ComboBoxItem Content="System" Tag="System"/>
+                    <ComboBoxItem Content="Light" Tag="Light"/>
+                    <ComboBoxItem Content="Dark" Tag="Dark"/>
+                </ComboBox>
+            </StackPanel>
+
+            <!-- Download Settings -->
+            <StackPanel Spacing="16">
+                <TextBlock Text="Download Settings"
+                           Style="{StaticResource SubtitleTextBlockStyle}"/>
+
+                <NumberBox Header="Maximum Concurrent Downloads"
+                           Value="{x:Bind ViewModel.MaxConcurrentDownloads, Mode=TwoWay}"
+                           Minimum="1"
+                           Maximum="10"
+                           SpinButtonPlacementMode="Compact"
+                           SmallChange="1"
+                           LargeChange="2"/>
+
+                <CheckBox Content="Embed Thumbnails"
+                          IsChecked="{x:Bind ViewModel.EmbedThumbnails, Mode=TwoWay}"/>
+
+                <CheckBox Content="Embed Metadata"
+                          IsChecked="{x:Bind ViewModel.EmbedMetadata, Mode=TwoWay}"/>
+            </StackPanel>
+
+            <!-- Dependencies -->
+            <StackPanel Spacing="16">
+                <TextBlock Text="Dependencies"
+                           Style="{StaticResource SubtitleTextBlockStyle}"/>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBox Header="FFmpeg Path"
+                             Text="{x:Bind ViewModel.FFmpegPath, Mode=TwoWay}"
+                             IsReadOnly="True"/>
+
+                    <Button Grid.Column="1"
+                            Margin="8,0,0,0"
+                            VerticalAlignment="Bottom"
+                            Content="Browse"
+                            Command="{x:Bind ViewModel.BrowseFFmpegCommand}"/>
+                </Grid>
+            </StackPanel>
+
+            <!-- Save Button -->
+            <Button Content="Save Settings"
+                    Command="{x:Bind ViewModel.SaveCommand}"
+                    Style="{StaticResource AccentButtonStyle}"
+                    HorizontalAlignment="Left"/>
+
+            <!-- About Section -->
+            <StackPanel Spacing="8">
+                <TextBlock Text="About"
+                           Style="{StaticResource SubtitleTextBlockStyle}"/>
+
+                <TextBlock Text="TreaYT Downloader"
+                           Style="{StaticResource BodyStrongTextBlockStyle}"/>
+
+                <TextBlock Text="Version 1.0.0"
+                           Style="{StaticResource BodyTextBlockStyle}"
+                           Opacity="0.7"/>
+
+                <HyperlinkButton Content="View Source Code"
+                                 NavigateUri="https://github.com/yourusername/treayt"/>
+
+                <TextBlock Text="Built with yt-dlp"
+                           Style="{StaticResource BodyTextBlockStyle}"
+                           Opacity="0.7"/>
+            </StackPanel>
+        </StackPanel>
+    </ScrollViewer>
+</Page>

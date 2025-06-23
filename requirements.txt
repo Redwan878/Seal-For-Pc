@@ -1,0 +1,5 @@
+pyside6>=6.5.0
+yt-dlp>=2023.10.13
+pillow>=10.0.0
+requests>=2.31.0
+packaging>=23.1

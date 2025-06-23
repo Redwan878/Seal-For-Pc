@@ -1,0 +1,142 @@
+<Window
+    x:Class="TreaYT.Views.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local="using:TreaYT.Views"
+    xmlns:vm="using:TreaYT.ViewModels"
+    mc:Ignorable="d"
+    Title="TreaYT Downloader">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Top App Bar -->
+        <Grid Background="{ThemeResource PrimaryBrush}" Height="48">
+            <TextBlock Text="TreaYT Downloader" 
+                       Foreground="{ThemeResource OnPrimaryBrush}"
+                       VerticalAlignment="Center"
+                       Margin="12,0,0,0"
+                       Style="{StaticResource TitleTextBlockStyle}"/>
+        </Grid>
+
+        <!-- Main Content -->
+        <NavigationView Grid.Row="1"
+                        IsBackButtonVisible="Collapsed"
+                        IsSettingsVisible="True"
+                        PaneDisplayMode="Left">
+            
+            <NavigationView.MenuItems>
+                <NavigationViewItem Icon="Download" Content="Downloads" Tag="downloads" />
+                <NavigationViewItem Icon="Clock" Content="History" Tag="history" />
+            </NavigationView.MenuItems>
+
+            <Grid Margin="16">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <!-- URL Input Section -->
+                <Grid Grid.Row="0" Margin="0,0,0,16">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBox Grid.Column="0"
+                             PlaceholderText="Enter YouTube URL"
+                             Text="{x:Bind ViewModel.Url, Mode=TwoWay}"
+                             Style="{StaticResource TextBoxStyle}"/>
+
+                    <Button Grid.Column="1"
+                            Margin="8,0,0,0"
+                            Content="Analyze"
+                            Command="{x:Bind ViewModel.AnalyzeCommand}"
+                            Style="{StaticResource AccentButtonStyle}"/>
+
+                    <Button Grid.Column="2"
+                            Margin="8,0,0,0"
+                            Content="Download"
+                            Command="{x:Bind ViewModel.DownloadCommand}"
+                            Style="{StaticResource AccentButtonStyle}"/>
+                </Grid>
+
+                <!-- Download Options -->
+                <StackPanel Grid.Row="1" Spacing="8" Margin="0,0,0,16">
+                    <ComboBox Header="Format"
+                              ItemsSource="{x:Bind ViewModel.AvailableFormats}"
+                              SelectedItem="{x:Bind ViewModel.SelectedFormat, Mode=TwoWay}"
+                              Width="300"
+                              HorizontalAlignment="Left"/>
+
+                    <CheckBox Content="Audio Only"
+                              IsChecked="{x:Bind ViewModel.AudioOnly, Mode=TwoWay}"/>
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBox Grid.Column="0"
+                                 Header="Download Path"
+                                 Text="{x:Bind ViewModel.DownloadPath, Mode=TwoWay}"
+                                 IsReadOnly="True"/>
+
+                        <Button Grid.Column="1"
+                                Margin="8,0,0,0"
+                                VerticalAlignment="Bottom"
+                                Content="Browse"
+                                Command="{x:Bind ViewModel.BrowseCommand}"/>
+                    </Grid>
+                </StackPanel>
+
+                <!-- Active Downloads -->
+                <Grid Grid.Row="2">
+                    <ListView ItemsSource="{x:Bind ViewModel.ActiveDownloads}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate x:DataType="local:DownloadProgress">
+                                <Grid Margin="0,8">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+
+                                    <TextBlock Text="{x:Bind Title}"
+                                               Style="{StaticResource BodyTextBlockStyle}"/>
+
+                                    <Grid Grid.Row="1" Margin="0,4,0,0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <ProgressBar Value="{x:Bind Progress}"
+                                                     Maximum="100"/>
+
+                                        <StackPanel Grid.Column="1"
+                                                    Margin="8,0,0,0"
+                                                    Orientation="Horizontal"
+                                                    Spacing="8">
+                                            <TextBlock Text="{x:Bind Speed}"
+                                                       Style="{StaticResource CaptionTextBlockStyle}"/>
+                                            <TextBlock Text="{x:Bind ETA}"
+                                                       Style="{StaticResource CaptionTextBlockStyle}"/>
+                                        </StackPanel>
+                                    </Grid>
+                                </Grid>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </Grid>
+            </Grid>
+        </NavigationView>
+    </Grid>
+</Window>

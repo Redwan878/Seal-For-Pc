@@ -1,0 +1,65 @@
+# Build output
+bin/
+obj/
+
+# Visual Studio files
+.vs/
+*.user
+*.suo
+*.cache
+*.dll
+*.exe
+*.pdb
+*.log
+
+# Windows App SDK
+AppPackages/
+BundleArtifacts/
+
+# NuGet packages
+packages/
+
+# Application-specific files
+Settings.json
+History.json
+yt-dlp.exe
+ffmpeg.exe
+
+# Windows-specific files
+Thumb.db
+Desktop.ini
+
+# Certificates
+*.pfx
+*.snk
+
+# IDE-specific files
+.idea/
+.vscode/
+*.sln.iml
+
+# Temporary files
+*.tmp
+*.temp
+*.swp
+*~
+
+# Debug files
+*.diagsession
+*.etl
+*.trace
+
+# Test Results
+TestResults/
+
+# Code coverage results
+*.coverage
+*.coveragexml
+
+# Publish profiles
+**/Properties/PublishProfiles/*.pubxml
+**/Properties/ServiceDependencies/
+
+# Local development configuration
+appsettings.Development.json
+launchSettings.json

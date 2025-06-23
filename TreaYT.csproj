@@ -1,0 +1,56 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows10.0.19041.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWinUI>true</UseWinUI>
+    <EnableMsixTooling>true</EnableMsixTooling>
+    <WindowsPackageType>None</WindowsPackageType>
+    <WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <Platform>x64</Platform>
+    <RuntimeIdentifiers>win-x64</RuntimeIdentifiers>
+    <PublishProfile>win-x64.pubxml</PublishProfile>
+    <AssemblyName>TreaYT</AssemblyName>
+    <RootNamespace>TreaYT</RootNamespace>
+    <ApplicationIcon>Assets\app-icon.ico</ApplicationIcon>
+    <Version>1.0.0</Version>
+    <Authors>Firoz Alam</Authors>
+    <Company>TreaYT</Company>
+    <Product>TreaYT Downloader</Product>
+    <Description>A modern YouTube downloader built with WinUI 3</Description>
+    <Copyright>Copyright © 2024</Copyright>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.4.240211001" />
+    <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22621.2428" />
+    <PackageReference Include="CommunityToolkit.WinUI.UI.Controls" Version="7.1.2" />
+    <PackageReference Include="CommunityToolkit.WinUI.UI.Animations" Version="7.1.2" />
+    <PackageReference Include="CommunityToolkit.WinUI.UI.Media" Version="7.1.2" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0" />
+    <PackageReference Include="H.NotifyIcon.WinUI" Version="2.0.124" />
+    <PackageReference Include="YoutubeDLSharp" Version="1.1.2" />
+    <PackageReference Include="Serilog" Version="3.1.1" />
+    <PackageReference Include="Serilog.Extensions.Logging" Version="8.0.0" />
+    <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
+    <PackageReference Include="Serilog.Sinks.Debug" Version="2.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Assets\**">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>
