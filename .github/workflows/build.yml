@@ -1,25 +1,37 @@
-name: Build WinUI 3 App
+name: Build and Release TreaYT
+
 on:
   push:
-    branches: [ main ]
+    branches: [ "main" ]
   workflow_dispatch:
+
 jobs:
   build:
     runs-on: windows-latest
+
     steps:
-      - uses: actions/checkout@v3
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: '8.0.x'
-      - name: Restore dependencies
-        run: dotnet restore
-      - name: Build
-        run: dotnet build --configuration Release
-      - name: Publish
-        run: dotnet publish -c Release -o publish
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: TreaYT-winui3-build
-          path: publish
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '8.0.x'
+
+    - name: Display dotnet version
+      run: dotnet --info
+
+    - name: Restore dependencies
+      run: dotnet restore TreaYT.csproj
+
+    - name: Build application
+      run: dotnet build TreaYT.csproj --configuration Release --no-restore
+
+    - name: Publish application
+      run: dotnet publish TreaYT.csproj --configuration Release --runtime win-x64 --self-contained true --output ./publish --no-build
+
+    - name: Upload build artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: TreaYT-Build
+        path: ./publish

@@ -5,6 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="using:TreaYT.ViewModels"
+    xmlns:models="using:TreaYT.Models"
     mc:Ignorable="d">
 
     <Grid Padding="24">
@@ -73,7 +74,7 @@
             </ListView.ItemContainerStyle>
 
             <ListView.ItemTemplate>
-                <DataTemplate x:DataType="vm:DownloadProgress">
+                <DataTemplate x:DataType="models:DownloadProgress">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
@@ -129,11 +130,11 @@
                                   Margin="0,8,0,0"
                                   HorizontalAlignment="Right">
                             <Button Content="{x:Bind IsPaused ? 'Resume' : 'Pause'}"
-                                    Command="{Binding ViewModel.PauseCommand}"
-                                    CommandParameter="{x:Bind Id}"/>
+                                    Command="{x:Bind ViewModel.PauseCommand}"
+                                    CommandParameter="{x:Bind}"/>
                             <Button Content="Cancel"
-                                    Command="{Binding ViewModel.CancelCommand}"
-                                    CommandParameter="{x:Bind Id}"/>
+                                    Command="{x:Bind ViewModel.CancelCommand}"
+                                    CommandParameter="{x:Bind}"/>
                         </StackPanel>
                     </Grid>
                 </DataTemplate>

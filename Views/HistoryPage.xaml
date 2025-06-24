@@ -5,6 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="using:TreaYT.ViewModels"
+    xmlns:models="using:TreaYT.Models"
     mc:Ignorable="d">
 
     <Grid Padding="24">
@@ -62,7 +63,7 @@
             </ListView.ItemContainerStyle>
 
             <ListView.ItemTemplate>
-                <DataTemplate x:DataType="vm:DownloadHistoryItem">
+                <DataTemplate x:DataType="models:DownloadHistoryItem">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
@@ -122,8 +123,8 @@
                             HorizontalAlignment="Right">
 
                             <Button
-                                Command="{Binding ViewModel.OpenFolderCommand}"
-                                CommandParameter="{x:Bind OutputPath}">
+                                Command="{x:Bind ViewModel.OpenFolderCommand}"
+                                CommandParameter="{x:Bind}">
                                 <StackPanel Orientation="Horizontal" Spacing="8">
                                     <FontIcon Glyph="&#xE838;"/>
                                     <TextBlock Text="Open Folder"/>
@@ -131,7 +132,7 @@
                             </Button>
 
                             <Button
-                                Command="{Binding ViewModel.DeleteItemCommand}"
+                                Command="{x:Bind ViewModel.DeleteItemCommand}"
                                 CommandParameter="{x:Bind}">
                                 <StackPanel Orientation="Horizontal" Spacing="8">
                                     <FontIcon Glyph="&#xE74D;"/>
