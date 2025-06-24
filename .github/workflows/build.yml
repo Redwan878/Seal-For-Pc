@@ -23,6 +23,10 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore TreaYT.csproj
 
+    - name: Install Visual Studio Build Tools and UWP/WinUI workloads
+      run: |
+        choco install visualstudio2022buildtools --package-parameters "--add Microsoft.VisualStudio.Workload.ManagedDesktop --add Microsoft.VisualStudio.Workload.Universal --add Microsoft.VisualStudio.Component.WindowsAppSDK.CsTemplates --includeRecommended --quiet --wait"
+
     - name: Build application
       run: dotnet build TreaYT.csproj --configuration Release --no-restore
 
