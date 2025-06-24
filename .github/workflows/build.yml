@@ -1,22 +1,41 @@
+<<<<<<< HEAD
 name: Build and Release TreaYT
 
 on:
   push:
     branches: [ "main" ]
+=======
+name: Build TreaYT WinUI 3 App
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+>>>>>>> 5bfc7ba14d79940fa7fb88873d7b7eba6ae416a1
   workflow_dispatch:
 
 jobs:
   build:
     runs-on: windows-latest
+<<<<<<< HEAD
 
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
 
+=======
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+>>>>>>> 5bfc7ba14d79940fa7fb88873d7b7eba6ae416a1
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: '8.0.x'
+<<<<<<< HEAD
 
     - name: Display dotnet version
       run: dotnet --info
@@ -35,3 +54,30 @@ jobs:
       with:
         name: TreaYT-Build
         path: ./publish
+=======
+        
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v2
+      
+    - name: Setup NuGet
+      uses: NuGet/setup-nuget@v2
+      
+    - name: Restore NuGet packages
+      run: nuget restore TreaYT.csproj
+      
+    - name: Restore .NET dependencies
+      run: dotnet restore TreaYT.csproj
+      
+    - name: Build application
+      run: dotnet build TreaYT.csproj --configuration Release --no-restore
+      
+    - name: Publish application
+      run: dotnet publish TreaYT.csproj -c Release -r win-x64 --self-contained true -o ./publish
+      
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: TreaYT-WinUI3-Release
+        path: ./publish
+        retention-days: 30
+>>>>>>> 5bfc7ba14d79940fa7fb88873d7b7eba6ae416a1
